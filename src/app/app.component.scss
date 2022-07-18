@@ -1,0 +1,35 @@
+.controls {
+    width: 20%;
+    padding: 20px;
+ 
+    mat-form-field, .fileInputWrapper, .fontSizeWrapper, .downloadWrapper {
+        padding-bottom: 10px;
+    }
+
+    #uploadImagePreview {
+        width: 100%;
+    }
+}
+
+div#appWrapper {
+    width: 100%;
+    display: flex;
+
+    #loadingOverlay {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .canvasWrapper {
+        overflow: scroll
+    }
+}
+
+canvas#image {
+    display: none;
+}
+

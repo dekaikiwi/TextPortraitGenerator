@@ -1,0 +1,82 @@
+<div id="appWrapper">
+  <div class="controls">
+    <div class="fileInputWrapper">
+      <input type="file" class="file-upload" (change)="onFileSelect($event)"/>
+      <mat-checkbox [(ngModel)]="removeSpaces" (change)="redrawCanvas()">Remove Spaces</mat-checkbox>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Text</mat-label>
+      <textarea matInput [(ngModel)]='fillText' (change)="redrawCanvas()"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Font</mat-label>
+      <mat-select [(ngModel)]="selectedFont" (selectionChange)="redrawCanvas()">
+        <mat-option *ngFor="let font of FONT_LIST" [value]="font">{{font}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div [hidden]="!this.uploadedFile">
+      <mat-form-field>
+        <mat-label>Background Color (Hex Code)</mat-label>
+        <input matInput type="text" [(ngModel)]='backgroundColor' (change)="redrawCanvas()"/>
+      </mat-form-field>
+   </div>
+
+    <div [hidden]="!this.uploadedFile">
+      <mat-form-field>
+        <mat-label>Height</mat-label>
+        <input matInput type="text" [(ngModel)]='outputHeight' (change)="onOutputHeightChange()"/>
+      </mat-form-field>
+   </div>
+
+    <div [hidden]="!this.uploadedFile">
+      <mat-form-field>
+        <mat-label>Width</mat-label>
+        <input matInput type="text" [(ngModel)]='outputWidth' (change)="onOutputWidthChange()"/>
+      </mat-form-field>
+    </div>
+
+    <div class="fontSizeWrapper" [hidden]="!this.uploadedFile">
+      <label>Font Size (px)</label>
+      <mat-slider min="1" max="50" step="1" [(ngModel)]="fontSizePx" (change)="redrawCanvas()"></mat-slider>
+      <span>{{fontSizePx}}</span>
+    </div>
+
+    <div class="letterSpacingWrapper" [hidden]="!this.uploadedFile">
+      <label>Letter Spacing (px)</label>
+      <mat-slider min="-5" max="5" step="1" [(ngModel)]="letterSpacingPx" (change)="redrawCanvas()"></mat-slider>
+      <span>{{letterSpacingPx}}</span>
+    </div>
+
+    <div [hidden]="!this.uploadedFile">
+      <mat-checkbox [(ngModel)]="useBoldText" (change)="redrawCanvas()">Bold</mat-checkbox>
+      <mat-checkbox [(ngModel)]="useItalicText" (change)="redrawCanvas()">Italic</mat-checkbox>
+    </div>
+
+    <div class="downloadWrapper" [hidden]="!this.uploadedFile">
+      <button mat-flat-button color="primary" (click)="downloadImage()">Download</button>
+    </div>
+
+    <div class="imagePreviewWrapper" [hidden]="!this.uploadedFile">
+      <span>Image Preview: </span>
+      <img id="uploadImagePreview"/>
+    </div>
+    
+  </div>
+  
+  <!-- <div id="loadingOverlay" []="progressPercentage >= 100">
+    <mat-progress-spinner
+      color="primary"
+      mode="determinate"
+      [value]="progressPercentage">
+    </mat-progress-spinner>
+  </div> -->
+  <div class="canvasWrapper" [hidden]="!this.uploadedFile">
+    <canvas id="portrait"></canvas>
+    
+  </div>
+</div>
+
+<canvas id="image"></canvas>
